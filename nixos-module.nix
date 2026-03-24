@@ -77,9 +77,6 @@ in
     # ── GeoClue2 (ubicación para hipersol / brillo segun hora) ────────────────
     services.geoclue2.enable = true;
 
-    # ── ydotool (automatización de input en Wayland) ──────────────────────────
-    services.ydotool.enable = lib.mkDefault true;
-
     # ── XDG Portals ───────────────────────────────────────────────────────────
     xdg.portal = {
       enable = true;
