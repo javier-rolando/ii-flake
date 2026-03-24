@@ -101,7 +101,7 @@ in
       hyprshot                    # captura pantalla Hyprland (fallback en keybinds)
       slurp                       # selección área pantalla
       swappy                      # editor capturas de pantalla
-      (tesseract5.override { enabledLanguages = [ "eng" ]; })  # OCR + datos inglés
+      (tesseract5.override { enableLanguages = [ "eng" ]; })  # OCR + datos inglés
       wf-recorder                 # grabación pantalla Wayland
 
       # ── illogical-impulse-toolkit ───────────────────────────────────────────
