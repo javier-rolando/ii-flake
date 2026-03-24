@@ -34,10 +34,9 @@ in
       enable            = true;
       alsa.enable       = true;
       alsa.support32Bit = true;
-      pulse.enable      = true;   # reemplaza PulseAudio
-      wireplumber.enable = true;  # sesión de audio WirePlumber
+      pulse.enable      = true;
+      wireplumber.enable = true;
     };
-    # Desactivar PulseAudio nativo (PipeWire lo sustituye)
     hardware.pulseaudio.enable = lib.mkForce false;
     security.rtkit.enable = true;
 
