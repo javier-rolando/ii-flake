@@ -91,12 +91,9 @@ in
       ];
     };
 
-    # ── ddcutil (control brillo monitores externos) ────────────────────────────
-    # Permite uso sin sudo
-    services.ddcutil.enable = lib.mkDefault true;
-
-    # ── udev para brightnessctl sin sudo ──────────────────────────────────────
-    hardware.acpilight.enable = lib.mkDefault true;
+    # ── ddcutil sin sudo (i2c) y brightnessctl sin sudo (video) ──────────────
+    hardware.i2c.enable = lib.mkDefault true;
+    users.users.${cfg.user}.extraGroups = [ "i2c" "video" ];
 
     # ── Tipografías del sistema ────────────────────────────────────────────────
     fonts = {
