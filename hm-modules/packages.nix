@@ -77,6 +77,8 @@ in
       kdePackages.dolphin         # gestor de archivos (en Hyprland + QS config)
       kdePackages.systemsettings  # ajustes KDE (keybinds.conf)
       kdePackages.knewstuff        # módulo QML org.kde.newstuff (requerido por kcm_icons)
+      kdePackages.ksvg             # módulo QML org.kde.ksvg (requerido por kcm_desktoptheme)
+      kdePackages.libplasma        # módulo QML org.kde.kquickcontrolsaddons (absorbido en KDE6)
 
       # ── illogical-impulse-microtex-git ──────────────────────────────────────
       # MicroTeX: no disponible en nixpkgs (TODO: añadir derivación custom)
