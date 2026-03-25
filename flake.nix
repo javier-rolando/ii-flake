@@ -26,7 +26,7 @@
     #
     # donde "my-dots" sería tu propio input con url = "github:user/ii-vynx".
     dotfiles = {
-      url = "github:javier-rolando/ii-vynx";
+      url = "github:javier-rolando/ii-vynx?submodules=1";
       flake = false;
     };
   };
