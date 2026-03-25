@@ -10,7 +10,8 @@
     };
 
     quickshell = {
-      url = "git+https://git.outfoxxed.me/outfoxxed/quickshell";
+      # Commit pinned to match illogical-impulse-quickshell-git PKGBUILD
+      url = "git+https://git.outfoxxed.me/outfoxxed/quickshell?rev=7511545ee20664e3b8b8d3322c0ffe7567c56f7a";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 

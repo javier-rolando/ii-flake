@@ -38,6 +38,7 @@ pkgs.stdenv.mkDerivation {
 
   buildInputs = qtImports ++ [
     qs
+    pkgs.cpptrace                 # runtime dep (nuevo en commit 7511545)
     pkgs.gsettings-desktop-schemas
     pkgs.qt6.qtbase
     pkgs.qt6.qtdeclarative
