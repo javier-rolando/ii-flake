@@ -64,7 +64,6 @@ in
     };
 
     # ── Shell: fish ──────────────────────────────────────────────────────────
-    # Cargar config de starship desde los dotfiles en lugar de dejar que HM genere una vacía
     programs.starship.settings = builtins.fromTOML
       (builtins.readFile "${dots}/.config/starship.toml");
 
