@@ -79,6 +79,7 @@ in
       kdePackages.knewstuff        # módulo QML org.kde.newstuff (requerido por kcm_icons)
       kdePackages.ksvg             # módulo QML org.kde.ksvg (requerido por kcm_desktoptheme)
       kdePackages.libplasma        # módulo QML org.kde.kquickcontrolsaddons (absorbido en KDE6)
+      kdePackages.kdeclarative     # org.kde.kquickcontrolsaddons (proveedor real en nixpkgs)
 
       # ── illogical-impulse-microtex-git ──────────────────────────────────────
       # MicroTeX: no disponible en nixpkgs (TODO: añadir derivación custom)

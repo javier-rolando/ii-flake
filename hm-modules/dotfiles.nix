@@ -148,15 +148,33 @@ in
 
       # env.conf: reescrito completamente para garantizar rutas NixOS
       # (no se incluye el original porque sobreescribiría XDG_DATA_DIRS)
-      "hypr/hyprland/env.conf".text = ''
+      "hypr/hyprland/env.conf".text =
+        let
+          # Paquetes KDE que proveen módulos QML — store paths explícitos para
+          # garantizar que systemsettings, kcm_icons, etc. los encuentren
+          qmlPkgs = with pkgs.kdePackages; [
+            libplasma          # org.kde.kquickcontrolsaddons (absorbido en KDE6)
+            ksvg               # org.kde.ksvg
+            knewstuff          # org.kde.newstuff
+            kirigami           # org.kde.kirigami
+            qqc2-desktop-style # org.kde.desktop
+            qtdeclarative      # QtQuick, QtQml base
+            qtquicktimeline
+            qt5compat
+            plasma-workspace   # módulos QML adicionales de Plasma
+            kdeclarative       # org.kde.kquickcontrolsaddons (proveedor real)
+          ];
+          qmlPath = lib.makeSearchPath "lib/qt-6/qml" qmlPkgs;
+        in
+        ''
         # ── Variables Hyprland (usadas en execs.conf) ────────────────────────
         $qsConfig = ${config.home.homeDirectory}/.config/quickshell/ii
 
         # ── Rutas NixOS ──────────────────────────────────────────────────────
         env = PATH,${config.home.homeDirectory}/.nix-profile/bin:/etc/profiles/per-user/${config.home.username}/bin:$PATH
         env = XDG_DATA_DIRS,${config.home.homeDirectory}/.nix-profile/share:${config.home.homeDirectory}/.local/share:/etc/profiles/per-user/${config.home.username}/share:/run/current-system/sw/share:${config.home.homeDirectory}/.local/share/flatpak/exports/share:/var/lib/flatpak/exports/share:/usr/local/share:/usr/share
-        env = QT_PLUGIN_PATH,${config.home.homeDirectory}/.nix-profile/lib/qt-6/plugins:${config.home.homeDirectory}/.nix-profile/lib/plugins
-        env = QML2_IMPORT_PATH,${config.home.homeDirectory}/.nix-profile/lib/qt-6/qml:/etc/profiles/per-user/${config.home.username}/lib/qt-6/qml:/run/current-system/sw/lib/qt-6/qml
+        env = QT_PLUGIN_PATH,${config.home.homeDirectory}/.nix-profile/lib/qt-6/plugins:${config.home.homeDirectory}/.nix-profile/lib/plugins:/run/current-system/sw/lib/qt-6/plugins
+        env = QML2_IMPORT_PATH,${qmlPath}:${config.home.homeDirectory}/.nix-profile/lib/qt-6/qml:/etc/profiles/per-user/${config.home.username}/lib/qt-6/qml:/run/current-system/sw/lib/qt-6/qml
         env = QT_WAYLAND_DISABLE_WINDOWDECORATION,1
 
         # ── Contenido original de env.conf ───────────────────────────────────
