@@ -1,8 +1,4 @@
 # Readex Pro — ttf-readex-pro (no disponible como nixpkg estándar)
-#
-# NOTA: Si el build falla con "hash mismatch", actualiza el hash ejecutando:
-#   nix-prefetch-github ThomasJockin readexpro --rev main
-# o usa "--accept-flake-config" con "--extra-sandbox-paths" en el primer build.
 { lib, stdenvNoCC, fetchFromGitHub }:
 
 stdenvNoCC.mkDerivation {
@@ -12,13 +8,14 @@ stdenvNoCC.mkDerivation {
   src = fetchFromGitHub {
     owner = "ThomasJockin";
     repo  = "readexpro";
-    rev   = "main";
-    hash  = lib.fakeHash;  # Reemplaza con el hash real (ver NOTA arriba)
+    rev   = "master";
+    hash  = "sha256-3jpPDk6WuLfw53S7dBH0d5/KAeG3mnR9349A7QprOts=";
   };
 
   installPhase = ''
     runHook preInstall
-    find . -name "*.ttf" -exec install -Dm444 {} $out/share/fonts/TTF/ \;
+    install -Dm444 fonts/ttf/*.ttf -t $out/share/fonts/TTF
+    install -Dm444 fonts/variable/*.ttf -t $out/share/fonts/TTF
     runHook postInstall
   '';
 
