@@ -27,11 +27,7 @@ let
     sed -i 's|/dev/pts/\*|/dev/pts/* 2>/dev/null|g' \
       $out/ii/scripts/colors/applycolor.sh || true
 
-    ${pkgs.findutils}/bin/find $out -type f -exec \
-      ${pkgs.bash}/bin/bash -c '
-        head -1 "$1" | grep -q "^#!" && \
-        sed -i "1s|#!/usr/bin/env python3|#!${pythonEnv}/bin/python3|" "$1" || true
-      ' _ {} \;
+    patchShebangs $out
   '';
 
 in
@@ -132,6 +128,15 @@ in
       # ── ZSH helpers ──────────────────────────────────────────────────────
       "zshrc.d".source = "${dots}/.config/zshrc.d";
 
+      # Fontconfig: incluir /etc/fonts/fonts.conf para fuentes del sistema
+      "fontconfig/fonts.conf".text = ''
+        <?xml version="1.0"?>
+        <!DOCTYPE fontconfig SYSTEM "urn:fontconfig:fonts.dtd">
+        <fontconfig>
+          <include ignore_missing="yes">/etc/fonts/fonts.conf</include>
+        </fontconfig>
+      '';
+
       # ── Fish config (cargado desde programs.fish.interactiveShellInit) ───
       "fish/config-ii.fish".source  = "${dots}/.config/fish/config.fish";
       "fish/auto-Hypr.fish".source  = "${dots}/.config/fish/auto-Hypr.fish";
@@ -141,16 +146,27 @@ in
       # hyprland.conf original — usa $qsConfig = "ii" (QS lo resuelve via XDG)
       "hypr/hyprland.conf".source = "${dots}/.config/hypr/hyprland.conf";
 
-      # env.conf: añadimos variables NixOS encima del original
+      # env.conf: reescrito completamente para garantizar rutas NixOS
+      # (no se incluye el original porque sobreescribiría XDG_DATA_DIRS)
       "hypr/hyprland/env.conf".text = ''
-        # ── Añadido por ii-vynx flake (rutas NixOS) ──────────────────────────
-        env = PATH,$HOME/.nix-profile/bin:/etc/profiles/per-user/${config.home.username}/bin:$PATH
-        env = XDG_DATA_DIRS,$HOME/.nix-profile/share:$HOME/.local/share:/etc/profiles/per-user/${config.home.username}/share:/run/current-system/sw/share:/usr/local/share:/usr/share:$XDG_DATA_DIRS
-        env = QT_PLUGIN_PATH,$HOME/.nix-profile/lib/qt-6/plugins:$HOME/.nix-profile/lib/plugins
-        env = QML2_IMPORT_PATH,$HOME/.nix-profile/lib/qt-6/qml
-        env = LIBVA_DRIVER_NAME,nvidia
+        # ── Variables Hyprland (usadas en execs.conf) ────────────────────────
+        $qsConfig = ${config.home.homeDirectory}/.config/quickshell/ii
+
+        # ── Rutas NixOS ──────────────────────────────────────────────────────
+        env = PATH,${config.home.homeDirectory}/.nix-profile/bin:/etc/profiles/per-user/${config.home.username}/bin:$PATH
+        env = XDG_DATA_DIRS,${config.home.homeDirectory}/.nix-profile/share:${config.home.homeDirectory}/.local/share:/etc/profiles/per-user/${config.home.username}/share:/run/current-system/sw/share:${config.home.homeDirectory}/.local/share/flatpak/exports/share:/var/lib/flatpak/exports/share:/usr/local/share:/usr/share
+        env = QT_PLUGIN_PATH,${config.home.homeDirectory}/.nix-profile/lib/qt-6/plugins:${config.home.homeDirectory}/.nix-profile/lib/plugins
+        env = QML2_IMPORT_PATH,${config.home.homeDirectory}/.nix-profile/lib/qt-6/qml
+        env = QT_WAYLAND_DISABLE_WINDOWDECORATION,1
+
         # ── Contenido original de env.conf ───────────────────────────────────
-        ${builtins.readFile "${dots}/.config/hypr/hyprland/env.conf"}
+        env = ELECTRON_OZONE_PLATFORM_HINT,auto
+        env = QT_QPA_PLATFORM,wayland;xcb
+        env = QT_QPA_PLATFORMTHEME,kde
+        env = XDG_MENU_PREFIX,plasma-
+        env = ILLOGICAL_IMPULSE_VIRTUAL_ENV,${config.home.homeDirectory}/.local/state/quickshell/.venv
+        env = qsConfig,${config.home.homeDirectory}/.config/quickshell/ii
+        env = TERMINAL,kitty -1
       '';
 
       "hypr/hyprland/colors.conf".source   = "${dots}/.config/hypr/hyprland/colors.conf";

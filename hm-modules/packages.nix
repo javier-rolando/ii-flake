@@ -17,6 +17,7 @@ in
       lxqt.pavucontrol-qt         # control de volumen Qt (usado en Hyprland+QS)
       wireplumber                 # sesión WirePlumber
       pipewire                    # pipewire-pulse: pactl viene de aquí en NixOS
+      pulseaudio                  # pactl + parec (usados en scripts de QS/audio)
       libdbusmenu-gtk3            # menús DBus GTK3
       playerctl                   # control reproductores MPRIS
 
@@ -95,6 +96,7 @@ in
       gobject-introspection       # introspección GObject (bindings Python)
 
       # ── illogical-impulse-quickshell-git ────────────────────────────────────
+      jemalloc                    # allocator de memoria (dep runtime de QuickShell)
       qsPackage                   # QuickShell con deps Qt completas
 
       # ── illogical-impulse-screencapture ─────────────────────────────────────
@@ -133,6 +135,13 @@ in
       papirus-icon-theme
       adwaita-icon-theme
       hicolor-icon-theme
+      gnome-icon-theme             # cobertura adicional iconos GNOME
+
+      # gsettings (necesario para scripts de temas)
+      # glib ya instalado más arriba provee el binario gsettings
+
+      # Wallpaper y screenshots adicionales
+      grim                        # captura pantalla Wayland (usado en keybinds + scripts OCR)
 
       # Qt6ct para configuración tema Qt6
       qt6Packages.qt6ct
