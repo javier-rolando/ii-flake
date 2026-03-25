@@ -9,7 +9,7 @@ stdenvNoCC.mkDerivation {
     owner = "ThomasJockin";
     repo  = "readexpro";
     rev   = "master";
-    hash  = "sha256-3jpPDk6WuLfw53S7dBH0d5/KAeG3mnR9349A7QprOts=";
+    hash  = "sha256-+CLym2N2O6Opv7pxuVA+sfiENggPD5HRJrVByzaMMN8=";
   };
 
   installPhase = ''
