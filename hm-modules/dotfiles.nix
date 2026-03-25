@@ -64,6 +64,10 @@ in
     };
 
     # ── Shell: fish ──────────────────────────────────────────────────────────
+    # Cargar config de starship desde los dotfiles en lugar de dejar que HM genere una vacía
+    programs.starship.settings = builtins.fromTOML
+      (builtins.readFile "${dots}/.config/starship.toml");
+
     programs.fish = {
       enable = true;
       interactiveShellInit = ''
@@ -119,9 +123,6 @@ in
 
       # ── Matugen (paleta Material You) ─────────────────────────────────────
       "matugen".source = "${dots}/.config/matugen";
-
-      # ── Starship ──────────────────────────────────────────────────────────
-      "starship.toml".source = "${dots}/.config/starship.toml";
 
       # ── Wlogout ───────────────────────────────────────────────────────────
       "wlogout".source = "${dots}/.config/wlogout";
