@@ -3,20 +3,18 @@
 
 stdenvNoCC.mkDerivation {
   pname   = "space-grotesk";
-  version = "3.0.1";
+  version = "1.0.1";
 
-  # NOTA: Si el hash falla, ejecuta:
-  #   nix-prefetch-github floriankarsten space-grotesk --rev v3.0.1
   src = fetchFromGitHub {
     owner = "floriankarsten";
     repo  = "space-grotesk";
-    rev   = "v3.0.1";
-    hash  = lib.fakeHash;  # Reemplaza con el hash real (ver NOTA arriba)
+    rev   = "v1.0.1";
+    hash  = "sha256-NKV6A4opImEUmnsxQtcc+f/su6UvQoq3q3hBt3Y50+Y=";
   };
 
   installPhase = ''
     runHook preInstall
-    install -Dm444 fonts/ttf/*.ttf -t $out/share/fonts/TTF
+    install -Dm444 fonts/otf/*.otf -t $out/share/fonts/OTF
     runHook postInstall
   '';
 
