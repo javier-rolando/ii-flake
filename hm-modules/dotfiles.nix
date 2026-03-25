@@ -156,7 +156,7 @@ in
         env = PATH,${config.home.homeDirectory}/.nix-profile/bin:/etc/profiles/per-user/${config.home.username}/bin:$PATH
         env = XDG_DATA_DIRS,${config.home.homeDirectory}/.nix-profile/share:${config.home.homeDirectory}/.local/share:/etc/profiles/per-user/${config.home.username}/share:/run/current-system/sw/share:${config.home.homeDirectory}/.local/share/flatpak/exports/share:/var/lib/flatpak/exports/share:/usr/local/share:/usr/share
         env = QT_PLUGIN_PATH,${config.home.homeDirectory}/.nix-profile/lib/qt-6/plugins:${config.home.homeDirectory}/.nix-profile/lib/plugins
-        env = QML2_IMPORT_PATH,${config.home.homeDirectory}/.nix-profile/lib/qt-6/qml
+        env = QML2_IMPORT_PATH,${config.home.homeDirectory}/.nix-profile/lib/qt-6/qml:/etc/profiles/per-user/${config.home.username}/lib/qt-6/qml:/run/current-system/sw/lib/qt-6/qml
         env = QT_WAYLAND_DISABLE_WINDOWDECORATION,1
 
         # ── Contenido original de env.conf ───────────────────────────────────

@@ -76,6 +76,7 @@ in
       kdePackages.polkit-kde-agent-1  # agente de autenticación polkit
       kdePackages.dolphin         # gestor de archivos (en Hyprland + QS config)
       kdePackages.systemsettings  # ajustes KDE (keybinds.conf)
+      kdePackages.knewstuff        # módulo QML org.kde.newstuff (requerido por kcm_icons)
 
       # ── illogical-impulse-microtex-git ──────────────────────────────────────
       # MicroTeX: no disponible en nixpkgs (TODO: añadir derivación custom)
