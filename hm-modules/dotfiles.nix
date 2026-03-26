@@ -102,7 +102,8 @@ in
       "Kvantum".source    = "${dots}/.config/Kvantum";
 
       # ── KDE apps ─────────────────────────────────────────────────────────
-      "dolphinrc".source           = "${dots}/.config/dolphinrc";
+      # dolphinrc: manejado como copia mutable en el activation script
+      #            (Dolphin necesita escribir en él para guardar estado)
       "kde-material-you-colors".source = "${dots}/.config/kde-material-you-colors";
       "konsolerc".source           = "${dots}/.config/konsolerc";
 
@@ -238,7 +239,18 @@ in
         else
           $DRY_RUN_CMD chmod u+w "$targetPath/kdeglobals"
         fi
-
+        # dolphinrc — mutable para que Dolphin guarde estado de ventana
+        if [ -L "$targetPath/dolphinrc" ]; then
+          $DRY_RUN_CMD rm "$targetPath/dolphinrc"
+        fi
+        if [ ! -f "$targetPath/dolphinrc" ]; then
+          if [ -f "$configPath/dolphinrc" ]; then
+            $DRY_RUN_CMD cp "$configPath/dolphinrc" "$targetPath/dolphinrc"
+            $DRY_RUN_CMD chmod u+w "$targetPath/dolphinrc"
+          fi
+        else
+          $DRY_RUN_CMD chmod u+w "$targetPath/dolphinrc"
+        fi
         # Konsole profiles — directorio mutable
         konsoleTarget="$HOME/.local/share/konsole"
         konsoleSource="${dots}/.local/share/konsole"
