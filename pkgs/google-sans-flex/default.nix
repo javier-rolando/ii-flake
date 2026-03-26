@@ -10,7 +10,7 @@ stdenvNoCC.mkDerivation {
     owner = "end-4";
     repo  = "google-sans-flex";
     rev   = "251aa5abd30496368f634e54ce2a508fe5a2fdfa";
-    hash  = "sha256-XTMh9vp0BAziVLXVu73mCo5+xkejkZEZ27ZLAg6wDtA=";
+    hash  = "sha256-HMAS0L/Tsqyl1xI16cyIzg9LEb6Dyq91JY4wqFQV9Vs=";
   };
 
   installPhase = ''
