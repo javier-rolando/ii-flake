@@ -12,4 +12,7 @@
 
   # Readex Pro (ttf-readex-pro — no disponible como nixpkg estándar)
   readex-pro = pkgs.callPackage ./readex-pro {};
+
+  # Google Sans Flex — fuente principal de ii-vynx (descargada por el install script en Arch)
+  google-sans-flex = pkgs.callPackage ./google-sans-flex {};
 }

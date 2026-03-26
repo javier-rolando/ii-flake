@@ -29,6 +29,7 @@ in
       twemoji-color-font           # Twemoji (ttf-twemoji)
       customPkgs.space-grotesk    # Space Grotesk (otf-space-grotesk)
       customPkgs.readex-pro       # Readex Pro (ttf-readex-pro)
+      customPkgs.google-sans-flex # Google Sans Flex (fuente principal de QS — instalada por setup script en Arch)
 
       # Fuente Gabarito (NUR)
       nurPkgs.repos.skiletro.gabarito

@@ -62,6 +62,8 @@ in
       customPkgs.readex-pro
       # ttf-material-symbols-variable-git → customPkgs.material-symbols
       customPkgs.material-symbols
+      # google-sans-flex → fuente principal de QS (instalada por setup script en Arch)
+      customPkgs.google-sans-flex
 
       # ── illogical-impulse-hyprland ──────────────────────────────────────────
       # hyprland instalado a nivel sistema via nixos-module.nix
