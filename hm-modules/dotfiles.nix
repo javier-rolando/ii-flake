@@ -167,9 +167,6 @@ in
           qmlPath = lib.makeSearchPath "lib/qt-6/qml" qmlPkgs;
         in
         ''
-        # ── Variables Hyprland (usadas en execs.conf) ────────────────────────
-        $qsConfig = ${config.home.homeDirectory}/.config/quickshell/ii
-
         # ── Rutas NixOS ──────────────────────────────────────────────────────
         env = PATH,${config.home.homeDirectory}/.nix-profile/bin:/etc/profiles/per-user/${config.home.username}/bin:$PATH
         env = XDG_DATA_DIRS,${config.home.homeDirectory}/.nix-profile/share:${config.home.homeDirectory}/.local/share:/etc/profiles/per-user/${config.home.username}/share:/run/current-system/sw/share:${config.home.homeDirectory}/.local/share/flatpak/exports/share:/var/lib/flatpak/exports/share:/usr/local/share:/usr/share
@@ -183,7 +180,7 @@ in
         env = QT_QPA_PLATFORMTHEME,kde
         env = XDG_MENU_PREFIX,plasma-
         env = ILLOGICAL_IMPULSE_VIRTUAL_ENV,${config.home.homeDirectory}/.local/state/quickshell/.venv
-        env = qsConfig,${config.home.homeDirectory}/.config/quickshell/ii
+        env = qsConfig,ii
         env = TERMINAL,kitty -1
       '';
 
