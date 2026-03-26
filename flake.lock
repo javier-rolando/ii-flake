@@ -3,16 +3,17 @@
     "dotfiles": {
       "flake": false,
       "locked": {
-        "lastModified": 1774473294,
-        "narHash": "sha256-1mVvr26aMRMLZpvkk1Hf7YBR80Dlj+VHdvaFe2G5daw=",
-        "ref": "refs/heads/main",
-        "rev": "4b2a91fda73c7c811a4f0e2647bf34ee967cb1fb",
-        "revCount": 7050,
+        "lastModified": 1774559942,
+        "narHash": "sha256-MJ99nxTX8jLrMmIlU4tb7THUgtk28QP2mlnEToucr94=",
+        "ref": "nixos",
+        "rev": "e305a4a8eb0e6a892f473d6615196358fa60c5f7",
+        "revCount": 7100,
         "submodules": true,
         "type": "git",
         "url": "https://github.com/javier-rolando/ii-vynx"
       },
       "original": {
+        "ref": "nixos",
         "submodules": true,
         "type": "git",
         "url": "https://github.com/javier-rolando/ii-vynx"
