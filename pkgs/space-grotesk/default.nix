@@ -3,13 +3,13 @@
 
 stdenvNoCC.mkDerivation {
   pname   = "space-grotesk";
-  version = "1.0.1";
+  version = "2.0.0";
 
   src = fetchFromGitHub {
     owner = "floriankarsten";
     repo  = "space-grotesk";
-    rev   = "v1.0.1";
-    hash  = "sha256-nEIfb/X6b3yYfqy3PgyzdsJkELE26sWs6NB9MoxE6NI=";
+    rev   = "2.0.0";
+    hash  = "sha256-Nm2k3exPY39tLTQiUcLl6LivZ9EGU/NHqdnWA8xkVHo=";
   };
 
   installPhase = ''
