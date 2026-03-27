@@ -9,7 +9,7 @@ stdenvNoCC.mkDerivation {
     owner = "floriankarsten";
     repo  = "space-grotesk";
     rev   = "2.0.0";
-    hash  = "sha256-Nm2k3exPY39tLTQiUcLl6LivZ9EGU/NHqdnWA8xkVHo=";
+    hash  = "sha256-frHmgB3CU+YACIMj0kdeAwrUoVAOZL2xj80fmoHdMao=";
   };
 
   installPhase = ''
