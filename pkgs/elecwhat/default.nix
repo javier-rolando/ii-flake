@@ -1,5 +1,10 @@
 # elecwhat — cliente de escritorio WhatsApp para Linux
-{ lib, stdenv, fetchurl, autoPatchelfHook, makeWrapper }:
+{ lib, stdenv, fetchurl, autoPatchelfHook, makeWrapper,
+  alsa-lib, atk, at-spi2-atk, at-spi2-core, cairo, cups,
+  dbus, expat, gtk3, libX11, libXcomposite, libXdamage,
+  libXext, libXfixes, libXrandr, libxcb, libxkbcommon,
+  mesa, nss, pango, systemd,
+}:
 
 let
   version = "1.13.4";
@@ -19,9 +24,16 @@ stdenv.mkDerivation {
 
   nativeBuildInputs = [ autoPatchelfHook makeWrapper ];
 
-  # autoPatchelfHook resuelve las dependencias del binario Electron
-  # y del módulo nativo sharp (.node) inspeccionando los ELF del directorio
-  buildInputs = [ stdenv.cc.cc.lib ];
+  buildInputs = [
+    alsa-lib atk at-spi2-atk at-spi2-core cairo cups
+    dbus expat gtk3 libX11 libXcomposite libXdamage
+    libXext libXfixes libXrandr libxcb libxkbcommon
+    mesa nss pango systemd
+    stdenv.cc.cc.lib
+  ];
+
+  # Las libs musl en sharp son para arquitectura musl (no usadas en glibc x86_64)
+  autoPatchelfIgnoreMissingDeps = [ "libc.musl-x86_64.so.1" ];
 
   dontBuild  = true;
   dontStrip  = true;
