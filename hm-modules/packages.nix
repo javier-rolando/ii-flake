@@ -164,6 +164,9 @@ in
       # Entorno Python (reemplaza el venv de Arch)
       pythonEnv
 
+      # ── Aplicaciones de usuario ──────────────────────────────────────────────
+      customPkgs.betterbird-bin      # cliente de correo (fork mejorado de Thunderbird)
+
     ];
   };
 }

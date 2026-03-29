@@ -15,4 +15,7 @@
 
   # Google Sans Flex — fuente principal de ii-vynx (descargada por el install script en Arch)
   google-sans-flex = pkgs.callPackage ./google-sans-flex {};
+
+  # Betterbird — fork mejorado de Thunderbird (binario oficial)
+  betterbird-bin = pkgs.callPackage ./betterbird {};
 }
