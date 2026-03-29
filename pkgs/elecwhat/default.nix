@@ -12,12 +12,10 @@ buildNpmPackage {
     hash  = "sha256-jBSKnZ8q612jYOKe5rsccrcMpmPYQp9mKK64GyyqZCk=";
   };
 
-  npmDepsHash = "sha256-z0CShfxg8RBBXZf58ORBBHG4pu0ogyle3KX1bcAJuDI=";
+  npmDepsHash = lib.fakeHash;
   npmDepsFetcherVersion = 2;
 
-  # No usar electron-builder (usamos el electron de nixpkgs)
-  # --ignore-scripts omite el postinstall "electron-builder install-app-deps"
-  npmInstallFlags = [ "--ignore-scripts" ];
+  npmInstallFlags = [ "--omit=dev" ];
 
   # No hay paso de build JS que ejecutar
   dontNpmBuild = true;
