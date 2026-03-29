@@ -12,7 +12,8 @@ buildNpmPackage {
     hash  = "sha256-jBSKnZ8q612jYOKe5rsccrcMpmPYQp9mKK64GyyqZCk=";
   };
 
-  npmDepsHash = "sha256-xWV4t5rwyUAMmHE9/TrrGBpSlixhnYD402WD19FvTgE=";
+  npmDepsHash = lib.fakeHash;
+  npmDepsFetcherVersion = 2;
 
   # No usar electron-builder (usamos el electron de nixpkgs)
   # --ignore-scripts omite el postinstall "electron-builder install-app-deps"
