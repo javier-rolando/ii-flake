@@ -12,7 +12,7 @@ buildNpmPackage {
     hash  = "sha256-jBSKnZ8q612jYOKe5rsccrcMpmPYQp9mKK64GyyqZCk=";
   };
 
-  npmDepsHash = lib.fakeHash;
+  npmDepsHash = "sha256-z0CShfxg8RBBXZf58ORBBHG4pu0ogyle3KX1bcAJuDI=";
   npmDepsFetcherVersion = 2;
 
   npmInstallFlags = [ "--omit=dev" ];
