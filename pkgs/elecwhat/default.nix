@@ -46,9 +46,11 @@ stdenv.mkDerivation {
     cp -r . $out/lib/elecwhat/
 
     # Wrapper con --no-sandbox (requerido para Electron sin setuid sandbox en NixOS)
+    # y mesa en LD_LIBRARY_PATH para que ANGLE encuentre libEGL.so.1 del sistema
     mkdir -p $out/bin
     makeWrapper $out/lib/elecwhat/elecwhat $out/bin/elecwhat \
-      --add-flags "--no-sandbox"
+      --add-flags "--no-sandbox" \
+      --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath [ mesa ]}"
 
     # Icono
     install -Dm644 ${icon} $out/share/icons/hicolor/512x512/apps/elecwhat.png
@@ -69,6 +71,14 @@ StartupNotify=true
 EOF
 
     runHook postInstall
+  '';
+
+  # sharp-linux-x64.node necesita libvips-cpp.so bundleada al lado en el mismo paquete npm.
+  # autoPatchelfHook no la encuentra sola — la agregamos al RPATH manualmente.
+  postFixup = ''
+    patchelf --add-rpath \
+      "$out/lib/elecwhat/resources/app.asar.unpacked/node_modules/@img/sharp-libvips-linux-x64/lib" \
+      "$out/lib/elecwhat/resources/app.asar.unpacked/node_modules/@img/sharp-linux-x64/lib/sharp-linux-x64.node"
   '';
 
   meta = with lib; {
