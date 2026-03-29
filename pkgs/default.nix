@@ -21,6 +21,6 @@
 
   # elecwhat — cliente de escritorio WhatsApp
   elecwhat = pkgs.callPackage ./elecwhat {
-    electron_37 = pkgs.electron_37;
+    electron_38 = pkgs.electron_38;
   };
 }

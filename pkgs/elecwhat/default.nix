@@ -1,5 +1,5 @@
 # elecwhat — cliente de escritorio WhatsApp para Linux (buildNpmPackage)
-{ lib, buildNpmPackage, fetchFromGitHub, electron_37, makeWrapper }:
+{ lib, buildNpmPackage, fetchFromGitHub, electron_38, makeWrapper }:
 
 buildNpmPackage {
   pname = "elecwhat";
@@ -45,7 +45,7 @@ StartupNotify=true
 EOF
 
     mkdir -p $out/bin
-    makeWrapper ${electron_37}/bin/electron $out/bin/elecwhat \
+    makeWrapper ${electron_38}/bin/electron $out/bin/elecwhat \
       --add-flags "$out/lib/elecwhat" \
       --add-flags "--no-sandbox"
 
