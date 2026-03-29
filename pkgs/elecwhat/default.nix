@@ -1,61 +1,35 @@
-# elecwhat — cliente de escritorio WhatsApp para Linux
-{ lib, stdenv, fetchurl, autoPatchelfHook, makeWrapper,
-  alsa-lib, atk, at-spi2-atk, at-spi2-core, cairo, cups,
-  dbus, expat, gtk3, libX11, libXcomposite, libXdamage,
-  libXext, libXfixes, libXrandr, libxcb, libxkbcommon,
-  mesa, nss, pango, systemd,
-}:
+# elecwhat — cliente de escritorio WhatsApp para Linux (buildNpmPackage)
+{ lib, buildNpmPackage, fetchFromGitHub, electron_37, makeWrapper }:
 
-let
-  version = "1.13.4";
-  icon = fetchurl {
-    url  = "https://raw.githubusercontent.com/piec/elecwhat/v${version}/static/app-512.png";
-    hash = "sha256-l55WL01Dej3LrARgTh0vXhHvKuY9p1A8Ztw3jHvKB4Y=";
-  };
-in
-stdenv.mkDerivation {
+buildNpmPackage {
   pname = "elecwhat";
-  inherit version;
+  version = "1.13.4";
 
-  src = fetchurl {
-    url  = "https://github.com/piec/elecwhat/releases/download/v${version}/elecwhat-${version}.tar.xz";
-    hash = "sha256-U8XqHJwT+294asALH1N3KDFqjbXfUEnEcHU4gL1uTRk=";
+  src = fetchFromGitHub {
+    owner = "piec";
+    repo  = "elecwhat";
+    rev   = "v1.13.4";
+    hash  = "sha256-gqP7LKyYFUm97uj6pdHlcmrowZf1ZdVf6c8JAaEj2L4=";
   };
 
-  nativeBuildInputs = [ autoPatchelfHook makeWrapper ];
+  npmDepsHash = lib.fakeHash;
 
-  buildInputs = [
-    alsa-lib atk at-spi2-atk at-spi2-core cairo cups
-    dbus expat gtk3 libX11 libXcomposite libXdamage
-    libXext libXfixes libXrandr libxcb libxkbcommon
-    mesa nss pango systemd
-    stdenv.cc.cc.lib
-  ];
+  # No usar electron-builder (usamos el electron de nixpkgs)
+  # --ignore-scripts omite el postinstall "electron-builder install-app-deps"
+  npmInstallFlags = [ "--ignore-scripts" ];
 
-  # Las libs musl en sharp son para arquitectura musl (no usadas en glibc x86_64)
-  autoPatchelfIgnoreMissingDeps = [ "libc.musl-x86_64.so.1" ];
-
-  dontBuild  = true;
-  dontStrip  = true;
-  sourceRoot = "elecwhat-${version}";
+  # No hay paso de build JS que ejecutar
+  dontNpmBuild = true;
 
   installPhase = ''
     runHook preInstall
 
     mkdir -p $out/lib/elecwhat
-    cp -r . $out/lib/elecwhat/
+    cp -r src src-web static locales package.json node_modules $out/lib/elecwhat/
 
-    # Wrapper con --no-sandbox (requerido para Electron sin setuid sandbox en NixOS)
-    # y mesa en LD_LIBRARY_PATH para que ANGLE encuentre libEGL.so.1 del sistema
-    mkdir -p $out/bin
-    makeWrapper $out/lib/elecwhat/elecwhat $out/bin/elecwhat \
-      --add-flags "--no-sandbox" \
-      --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath [ mesa ]}"
+    install -Dm644 static/app-512.png \
+      $out/share/icons/hicolor/512x512/apps/elecwhat.png
 
-    # Icono
-    install -Dm644 ${icon} $out/share/icons/hicolor/512x512/apps/elecwhat.png
-
-    # Entrada de escritorio
     mkdir -p $out/share/applications
     cat > $out/share/applications/elecwhat.desktop <<EOF
 [Desktop Entry]
@@ -70,15 +44,12 @@ StartupWMClass=elecwhat
 StartupNotify=true
 EOF
 
-    runHook postInstall
-  '';
+    mkdir -p $out/bin
+    makeWrapper ${electron_37}/bin/electron $out/bin/elecwhat \
+      --add-flags "$out/lib/elecwhat" \
+      --add-flags "--no-sandbox"
 
-  # sharp-linux-x64.node necesita libvips-cpp.so bundleada al lado en el mismo paquete npm.
-  # autoPatchelfHook no la encuentra sola — la agregamos al RPATH manualmente.
-  postFixup = ''
-    patchelf --add-rpath \
-      "$out/lib/elecwhat/resources/app.asar.unpacked/node_modules/@img/sharp-libvips-linux-x64/lib" \
-      "$out/lib/elecwhat/resources/app.asar.unpacked/node_modules/@img/sharp-linux-x64/lib/sharp-linux-x64.node"
+    runHook postInstall
   '';
 
   meta = with lib; {
@@ -87,6 +58,5 @@ EOF
     license     = licenses.gpl3;
     platforms   = [ "x86_64-linux" ];
     mainProgram = "elecwhat";
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
   };
 }

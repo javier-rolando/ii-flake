@@ -20,5 +20,7 @@
   betterbird-bin = pkgs.callPackage ./betterbird {};
 
   # elecwhat — cliente de escritorio WhatsApp
-  elecwhat = pkgs.callPackage ./elecwhat {};
+  elecwhat = pkgs.callPackage ./elecwhat {
+    electron_37 = pkgs.electron_37;
+  };
 }
