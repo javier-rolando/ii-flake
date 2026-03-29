@@ -9,7 +9,7 @@ buildNpmPackage {
     owner = "piec";
     repo  = "elecwhat";
     rev   = "v1.13.4";
-    hash  = "sha256-gqP7LKyYFUm97uj6pdHlcmrowZf1ZdVf6c8JAaEj2L4=";
+    hash  = "sha256-jBSKnZ8q612jYOKe5rsccrcMpmPYQp9mKK64GyyqZCk=";
   };
 
   npmDepsHash = lib.fakeHash;
