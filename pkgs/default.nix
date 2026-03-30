@@ -15,12 +15,4 @@
 
   # Google Sans Flex — fuente principal de ii-vynx (descargada por el install script en Arch)
   google-sans-flex = pkgs.callPackage ./google-sans-flex {};
-
-  # Betterbird — fork mejorado de Thunderbird (binario oficial)
-  betterbird-bin = pkgs.callPackage ./betterbird {};
-
-  # elecwhat — cliente de escritorio WhatsApp
-  elecwhat = pkgs.callPackage ./elecwhat {
-    electron_38 = pkgs.electron_38;
-  };
 }
