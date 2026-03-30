@@ -15,7 +15,12 @@ buildNpmPackage {
   npmDepsHash = "sha256-z0CShfxg8RBBXZf58ORBBHG4pu0ogyle3KX1bcAJuDI=";
   npmDepsFetcherVersion = 2;
 
-  npmInstallFlags = [ "--omit=dev" ];
+  npmInstallFlags = [ "--omit=dev" "--ignore-scripts" ];
+
+  postPatch = ''
+    substituteInPlace package.json \
+      --replace-fail '"postinstall": "electron-builder install-app-deps"' '"postinstall": ""'
+  '';
 
   # No hay paso de build JS que ejecutar
   dontNpmBuild = true;

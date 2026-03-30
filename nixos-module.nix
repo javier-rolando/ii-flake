@@ -104,5 +104,10 @@ in
       XDG_SESSION_DESKTOP   = "Hyprland";
       NIXOS_OZONE_WL        = "1";           # Electron en Wayland
     };
+
+    # ── Permitir paquetes inseguros (Electron 38 EOL) ──────────────────────────
+    nixpkgs.config.permittedInsecurePackages = [
+      "electron-38.8.4"
+    ];
   };
 }
