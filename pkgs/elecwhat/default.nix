@@ -9,7 +9,8 @@ buildNpmPackage {
     owner = "piec";
     repo  = "elecwhat";
     rev   = "v1.13.4";
-    hash  = "sha256-jBSKnZ8q612jYOKe5rsccrcMpmPYQp9mKK64GyyqZCk=";
+    hash  = "sha256-iJ6Im59RCx+KEEhiBK2CtKZUsR4+bGuMjgxg2OUVCyk=";
+    fetchLFS = true;
   };
 
   npmDepsHash = "sha256-z0CShfxg8RBBXZf58ORBBHG4pu0ogyle3KX1bcAJuDI=";
@@ -51,6 +52,8 @@ EOF
     mkdir -p $out/bin
     makeWrapper ${electron_38}/bin/electron $out/bin/elecwhat \
       --add-flags "$out/lib/elecwhat" \
+      --add-flags "--ozone-platform-hint=auto" \
+      --add-flags "--enable-features=WaylandWindowDecorations" \
       --add-flags "--no-sandbox"
 
     runHook postInstall
