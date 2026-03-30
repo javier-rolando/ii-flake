@@ -34,19 +34,5 @@ in
       # Fuente Gabarito (NUR)
       nurPkgs.repos.skiletro.gabarito
     ];
-
-    # Wrapper fontconfig para incluir las fuentes del sistema NixOS
-    xdg.configFile."fontconfig/fonts.conf".text = ''
-      <?xml version="1.0"?>
-      <!DOCTYPE fontconfig SYSTEM "urn:fontconfig:fonts.dtd">
-      <fontconfig>
-          <!-- Fuentes NixOS sistema -->
-          <include ignore_missing="yes">/etc/fonts/fonts.conf</include>
-          <!-- Anti-aliasing -->
-          <match target="font">
-              <edit name="rgba" mode="assign"><const>none</const></edit>
-          </match>
-      </fontconfig>
-    '';
   };
 }
