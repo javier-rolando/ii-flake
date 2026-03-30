@@ -166,7 +166,7 @@ in
 
       # ── Aplicaciones de usuario ──────────────────────────────────────────────
       customPkgs.betterbird-bin      # cliente de correo (fork mejorado de Thunderbird)
-      # customPkgs.elecwhat            # cliente WhatsApp de escritorio
+      customPkgs.elecwhat            # cliente WhatsApp de escritorio
 
     ];
   };
