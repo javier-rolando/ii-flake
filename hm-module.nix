@@ -11,7 +11,7 @@
     (import ./hm-modules/fonts.nix        { inherit customPkgs inputs; })
     (import ./hm-modules/dotfiles.nix     { inherit dotfiles customPkgs pythonEnv; })
     (import ./hm-modules/environment.nix  {})
-    (import ./hm-modules/hyprland.nix     { inherit inputs; })
+    (import ./hm-modules/hyprland.nix     { inherit inputs pkgs; })
   ];
 
   options.programs.ii-vynx = {
