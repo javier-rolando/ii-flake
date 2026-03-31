@@ -81,9 +81,26 @@ in
         name    = lib.mkDefault "OneUI-dark";
         package = lib.mkDefault customPkgs.illogical-impulse-oneui4-icons;
       };
+
+      # Reemplaza el comando: gsettings set org.gnome.desktop.interface font-name ...
+      font = {
+        name = lib.mkDefault "Google Sans Flex Medium 11";
+        package = lib.mkDefault customPkgs.google-sans-flex;
+      };
+
+      # Reemplaza el comando: gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark'
+      gtk3.extraConfig = {
+        gtk-application-prefer-dark-theme = lib.mkDefault 1;
+      };
+      gtk4.extraConfig = {
+        gtk-application-prefer-dark-theme = lib.mkDefault 1;
+      };
     };
-    dconf.settings."org/gnome/desktop/interface".icon-theme =
-      lib.mkDefault "OneUI-dark";
+    dconf.settings."org/gnome/desktop/interface" = {
+      "icon-theme" = lib.mkDefault "OneUI-dark";
+      "color-scheme" = lib.mkDefault "prefer-dark";
+      "font-name" = lib.mkDefault "Google Sans Flex Medium 11 @opsz=11,wght=500";
+    };
 
     # Symlink de Adwaita para que QS lo encuentre en XDG_DATA_DIRS
     home.file.".local/share/icons/Adwaita".source =
