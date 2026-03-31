@@ -1,15 +1,6 @@
 {
   description = "Mi configuración NixOS con ii-vynx (illogical-impulse) dotfiles";
 
-  nixConfig = {
-    extra-substituters = [
-      "https://hyprland.cachix.org"
-    ];
-    extra-trusted-public-keys = [
-      "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
-    ];
-  };
-
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
 
@@ -39,16 +30,9 @@
       url = "git+https://github.com/javier-rolando/ii-vynx?ref=nixos&submodules=1";
       flake = false;
     };
-
-    hyprland.url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
-
-    hyprland-plugins = {
-      url = "github:hyprwm/hyprland-plugins";
-      inputs.hyprland.follows = "hyprland";
-    };
   };
 
-  outputs = inputs@{ self, nixpkgs, home-manager, quickshell, nur, dotfiles, hyprland, hyprland-plugins, ... }:
+  outputs = inputs@{ self, nixpkgs, home-manager, quickshell, nur, dotfiles, ... }:
     let
       system = "x86_64-linux";
       pkgs   = nixpkgs.legacyPackages.${system};
@@ -66,7 +50,7 @@
       pythonEnv = import ./hm-modules/python-env.nix { inherit pkgs; };
 
       # Argumentos extra que se pasan a todos los sub-módulos HM
-      moduleArgs = { inherit inputs dotfiles customPkgs qsPackage pythonEnv hyprland hyprland-plugins; };
+      moduleArgs = { inherit inputs dotfiles customPkgs qsPackage pythonEnv; };
     in
     {
       # ── Paquetes exportados ──────────────────────────────────────────────────
