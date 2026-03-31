@@ -24,9 +24,14 @@ in
   config = lib.mkIf cfg.enable {
 
     # ── Hyprland ──────────────────────────────────────────────────────────────
+    imports = [ inputs.hyprland.nixosModules.default ];
+
     programs.hyprland = {
       enable = true;
       xwayland.enable = true;
+      # Usar el paquete directamente del flake
+      package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
+      portalPackage = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
     };
 
     # ── Audio: PipeWire (equivale a pipewire-pulse de Arch) ───────────────────
@@ -79,10 +84,10 @@ in
     xdg.portal = {
       enable = true;
       xdgOpenUsePortal = true;
-      extraPortals = with pkgs; [
-        xdg-desktop-portal-hyprland
-        xdg-desktop-portal-gtk
-        kdePackages.xdg-desktop-portal-kde
+      extraPortals = [
+        inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland
+        pkgs.xdg-desktop-portal-gtk
+        pkgs.kdePackages.xdg-desktop-portal-kde
       ];
     };
 

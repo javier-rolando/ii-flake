@@ -20,6 +20,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    hyprland = {
+      url = "github:hyprwm/Hyprland";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     # Dotfiles — por defecto usa el repo de ii-vynx.
     # Se puede sobreescribir desde otro flake apuntando a tu fork:
     #
@@ -60,7 +65,7 @@
       # Añade esto a tus nixosConfigurations:
       #   imports = [ inputs.ii-vynx.nixosModules.default ];
       #   ii-vynx.enable = true;
-      nixosModules.default = import ./nixos-module.nix;
+      nixosModules.default = { ... }@args: (import ./nixos-module.nix) (args // { inherit inputs; });
       nixosModules.ii-vynx = self.nixosModules.default;
 
       # ── Módulo Home-Manager (nivel usuario) ──────────────────────────────────

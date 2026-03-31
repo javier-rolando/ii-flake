@@ -1,12 +1,13 @@
 # hm-modules/packages.nix
 # Todos los paquetes de usuario equivalentes a los PKGBUILDs de dist-arch
 
-{ dotfiles, customPkgs, qsPackage, pythonEnv }:
+{ dotfiles, customPkgs, qsPackage, pythonEnv, inputs }:
 
 { config, lib, pkgs, ... }:
 
 let
   cfg = config.programs.ii-vynx;
+  hyprPkg = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system};
 in
 {
   config = lib.mkIf cfg.enable {
@@ -123,7 +124,7 @@ in
       imagemagick                 # procesamiento imágenes (QS, magick)
       hypridle                    # daemon inactividad (pantalla de bloqueo)
       hyprlock                    # pantalla de bloqueo
-      hyprpicker                  # recoge color de pantalla
+      hyprPkg.hyprpicker          # recoge color de pantalla (usar del flake)
       songrec                     # reconocimiento de música (QS)
       translate-shell             # traducción desde terminal (QS)
       wlogout                     # menú cerrar sesión
