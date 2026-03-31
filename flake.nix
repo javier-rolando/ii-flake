@@ -48,7 +48,7 @@
     };
   };
 
-  outputs = inputs@{ self, nixpkgs, home-manager, quickshell, nur, dotfiles, hyprland, hyprland-plugins ... }:
+  outputs = inputs@{ self, nixpkgs, home-manager, quickshell, nur, dotfiles, hyprland, hyprland-plugins, ... }:
     let
       system = "x86_64-linux";
       pkgs   = nixpkgs.legacyPackages.${system};
