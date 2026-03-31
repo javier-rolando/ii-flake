@@ -1,7 +1,7 @@
 # Módulo Home-Manager principal para ii-vynx
 # Importa todos los sub-módulos y expone la opción programs.ii-vynx.enable
 
-{ inputs, dotfiles, customPkgs, qsPackage, pythonEnv }:
+{ inputs, dotfiles, customPkgs, qsPackage, pythonEnv, hyprland, hyprland-plugins }:
 
 { config, lib, pkgs, ... }:
 
