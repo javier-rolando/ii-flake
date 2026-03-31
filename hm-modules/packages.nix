@@ -124,7 +124,7 @@ in
       imagemagick                 # procesamiento imágenes (QS, magick)
       hypridle                    # daemon inactividad (pantalla de bloqueo)
       hyprlock                    # pantalla de bloqueo
-      hyprPkg.hyprpicker          # recoge color de pantalla (usar del flake)
+      hyprpicker                  # recoge color de pantalla
       songrec                     # reconocimiento de música (QS)
       translate-shell             # traducción desde terminal (QS)
       wlogout                     # menú cerrar sesión
