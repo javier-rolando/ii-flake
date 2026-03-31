@@ -11,6 +11,8 @@ let
   cfg = config.ii-vynx;
 in
 {
+  imports = [ inputs.hyprland.nixosModules.default ];
+
   options.ii-vynx = {
     enable = lib.mkEnableOption "Configuración de sistema para ii-vynx (illogical-impulse)";
 
@@ -24,8 +26,6 @@ in
   config = lib.mkIf cfg.enable {
 
     # ── Hyprland ──────────────────────────────────────────────────────────────
-    imports = [ inputs.hyprland.nixosModules.default ];
-
     programs.hyprland = {
       enable = true;
       xwayland.enable = true;

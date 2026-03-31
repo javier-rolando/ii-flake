@@ -65,10 +65,7 @@
       # Añade esto a tus nixosConfigurations:
       #   imports = [ inputs.ii-vynx.nixosModules.default ];
       #   ii-vynx.enable = true;
-      nixosModules.default = {
-        imports = [ ./nixos-module.nix ];
-        _module.args.inputs = inputs;
-      };
+      nixosModules.default = { ... }@args: import ./nixos-module.nix (args // { inherit inputs; });
       nixosModules.ii-vynx = self.nixosModules.default;
 
       # ── Módulo Home-Manager (nivel usuario) ──────────────────────────────────
