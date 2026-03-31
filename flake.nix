@@ -39,6 +39,13 @@
       url = "git+https://github.com/javier-rolando/ii-vynx?ref=nixos&submodules=1";
       flake = false;
     };
+
+    hyprland.url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
+
+    hyprland-plugins = {
+      url = "github:hyprwm/hyprland-plugins";
+      inputs.hyprland.follows = "hyprland";
+    };
   };
 
   outputs = inputs@{ self, nixpkgs, home-manager, quickshell, nur, dotfiles, ... }:
@@ -59,7 +66,7 @@
       pythonEnv = import ./hm-modules/python-env.nix { inherit pkgs; };
 
       # Argumentos extra que se pasan a todos los sub-módulos HM
-      moduleArgs = { inherit inputs dotfiles customPkgs qsPackage pythonEnv; };
+      moduleArgs = { inherit inputs dotfiles customPkgs qsPackage pythonEnv hyprland hyprland-plugins; };
     in
     {
       # ── Paquetes exportados ──────────────────────────────────────────────────

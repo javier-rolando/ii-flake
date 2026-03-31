@@ -5,7 +5,7 @@
 #   ii-vynx.enable = true;
 #   ii-vynx.user   = "tunombre";
 
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, inputs, ... }:
 
 let
   cfg = config.ii-vynx;
@@ -25,7 +25,9 @@ in
 
     # ── Hyprland ──────────────────────────────────────────────────────────────
     programs.hyprland = {
-      enable       = true;
+      enable = true;
+      package = inputs.hyprland.packages.${pkgs.system}.hyprland;
+      portalPackage = inputs.hyprland.packages.${pkgs.system}.xdg-desktop-portal-hyprland;
       xwayland.enable = true;
     };
 
