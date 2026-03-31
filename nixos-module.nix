@@ -5,7 +5,7 @@
 #   ii-vynx.enable = true;
 #   ii-vynx.user   = "tunombre";
 
-{ config, lib, pkgs, inputs, ... }:
+inputs: { config, lib, pkgs, ... }:
 
 let
   cfg = config.ii-vynx;
