@@ -84,7 +84,7 @@ in
 
       # Reemplaza el comando: gsettings set org.gnome.desktop.interface font-name ...
       font = {
-        name = lib.mkDefault "Google Sans Flex Medium 11";
+        name = lib.mkDefault "Google Sans Flex";
         package = lib.mkDefault customPkgs.google-sans-flex;
       };
 
@@ -99,7 +99,8 @@ in
     dconf.settings."org/gnome/desktop/interface" = {
       "icon-theme" = lib.mkDefault "OneUI-dark";
       "color-scheme" = lib.mkDefault "prefer-dark";
-      "font-name" = lib.mkDefault "Google Sans Flex Medium 11 @opsz=11,wght=500";
+      "font-name" = lib.mkDefault "Google Sans Flex 11";
+      "document-font-name" = lib.mkDefault "Google Sans Flex 11";
     };
 
     # Symlink de Adwaita para que QS lo encuentre en XDG_DATA_DIRS
