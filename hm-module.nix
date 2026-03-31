@@ -10,7 +10,7 @@
     inputs.hyprland.homeManagerModules.default
     (import ./hm-modules/packages.nix     { inherit dotfiles customPkgs qsPackage pythonEnv inputs; })
     (import ./hm-modules/fonts.nix        { inherit customPkgs inputs; })
-    (import ./hm-modules/dotfiles.nix     { inherit dotfiles customPkgs pythonEnv; })
+    (import ./hm-modules/dotfiles.nix     { inherit dotfiles customPkgs pythonEnv inputs; })
     (import ./hm-modules/environment.nix  {})
   ];
 

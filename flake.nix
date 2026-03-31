@@ -25,6 +25,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    hyprland-plugins = {
+      url = "github:hyprwm/hyprland-plugins";
+      inputs.hyprland.follows = "hyprland";
+    };
+
     # Dotfiles — por defecto usa el repo de ii-vynx.
     # Se puede sobreescribir desde otro flake apuntando a tu fork:
     #

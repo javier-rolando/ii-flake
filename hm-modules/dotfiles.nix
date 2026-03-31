@@ -2,13 +2,14 @@
 # Gestión de dotfiles de ii-vynx via Home-Manager
 # Usa los archivos locales de ./ii-vynx/dots en lugar de pulling desde GitHub
 
-{ dotfiles, customPkgs, pythonEnv }:
+{ dotfiles, customPkgs, pythonEnv, inputs }:
 
 { config, lib, pkgs, ... }:
 
 let
   cfg  = config.programs.ii-vynx;
   dots = "${dotfiles}/dots";
+  hyprland-plugins = inputs.hyprland-plugins.packages.${pkgs.stdenv.hostPlatform.system};
 
   # Directorio de quickshell parcheado para NixOS:
   # - Reemplaza shebangs complejos de venv por #!/usr/bin/env python3
@@ -216,7 +217,10 @@ in
       "hypr/hyprland/scripts".source       = "${dots}/.config/hypr/hyprland/scripts";
 
       "hypr/custom/env.conf".source        = "${dots}/.config/hypr/custom/env.conf";
-      "hypr/custom/execs.conf".source      = "${dots}/.config/hypr/custom/execs.conf";
+      "hypr/custom/execs.conf".text      = ''
+        # Load hyprbars plugin from flake
+        exec-once = hyprctl plugin load ${hyprland-plugins.hyprbars}/lib/libhyprbars.so
+      '';
       "hypr/custom/general.conf".source    = "${dots}/.config/hypr/custom/general.conf";
       "hypr/custom/keybinds.conf".source   = "${dots}/.config/hypr/custom/keybinds.conf";
       "hypr/custom/rules.conf".source            = "${dots}/.config/hypr/custom/rules.conf";

@@ -8,6 +8,7 @@
 let
   cfg = config.programs.ii-vynx;
   hyprPkg = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system};
+  hyprland-plugins = inputs.hyprland-plugins.packages.${pkgs.stdenv.hostPlatform.system};
 in
 {
   config = lib.mkIf cfg.enable {
@@ -125,6 +126,7 @@ in
       hypridle                    # daemon inactividad (pantalla de bloqueo)
       hyprlock                    # pantalla de bloqueo
       hyprpicker                  # recoge color de pantalla
+      hyprland-plugins.hyprbars    # Barra de título para Hyprland
       songrec                     # reconocimiento de música (QS)
       translate-shell             # traducción desde terminal (QS)
       wlogout                     # menú cerrar sesión
