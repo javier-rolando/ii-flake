@@ -155,6 +155,31 @@ in
         <fontconfig>
           <!-- Fuentes NixOS sistema -->
           <include ignore_missing="yes">/etc/fonts/fonts.conf</include>
+
+          <!-- Alias para familias genéricas -->
+          <match target="pattern">
+            <test qual="any" name="family"><string>sans-serif</string></test>
+            <edit name="family" mode="prepend" binding="strong">
+              <string>Google Sans Flex</string>
+              <string>Rubik</string>
+            </edit>
+          </match>
+
+          <match target="pattern">
+            <test qual="any" name="family"><string>serif</string></test>
+            <edit name="family" mode="prepend" binding="strong">
+              <string>Google Sans Flex</string>
+            </edit>
+          </match>
+
+          <match target="pattern">
+            <test qual="any" name="family"><string>monospace</string></test>
+            <edit name="family" mode="prepend" binding="strong">
+              <string>JetBrainsMono Nerd Font</string>
+              <string>UbuntuMono Nerd Font</string>
+            </edit>
+          </match>
+
           <!-- Anti-aliasing -->
           <match target="font">
             <edit name="rgba" mode="assign"><const>none</const></edit>
