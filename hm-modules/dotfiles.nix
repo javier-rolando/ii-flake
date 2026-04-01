@@ -242,7 +242,8 @@ in
       "hypr/hyprland/scripts".source       = "${dots}/.config/hypr/hyprland/scripts";
 
       "hypr/custom/env.conf".source        = "${dots}/.config/hypr/custom/env.conf";
-      "hypr/custom/execs.conf".text      = ''
+      "hypr/custom/execs.conf".source      = "${dots}/.config/hypr/custom/execs.conf";
+      "hypr/custom/execs-plugins.conf".text      = ''
         # Load hyprbars plugin from flake
         exec-once = hyprctl plugin load ${hyprland-plugins.hyprbars}/lib/libhyprbars.so
       '';
